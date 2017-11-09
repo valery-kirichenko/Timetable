@@ -22,12 +22,18 @@ class InitialViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if UserDefaults.standard.string(forKey: "division") != nil &&
-            UserDefaults.standard.string(forKey: "studyGroup") != nil {
+        if GroupsController.shared.groups.selected != nil && GroupsController.shared.groups.list.count > 0 {
             self.present(storyboard!.instantiateViewController(withIdentifier: "TimetableNavigationController"), animated: false, completion: nil)
         } else {
             self.present(storyboard!.instantiateViewController(withIdentifier: "FirstSetupController"), animated: false, completion: nil)
         }
+        /*
+        if UserDefaults.standard.string(forKey: "studyGroup") != nil {
+            self.present(storyboard!.instantiateViewController(withIdentifier: "TimetableNavigationController"), animated: false, completion: nil)
+        } else {
+            self.present(storyboard!.instantiateViewController(withIdentifier: "FirstSetupController"), animated: false, completion: nil)
+        }
+         */
     }
 
     /*

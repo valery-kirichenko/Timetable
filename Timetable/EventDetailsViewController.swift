@@ -10,18 +10,26 @@ import UIKit
 
 class EventDetailsViewController: UIViewController {
     
-    @IBOutlet weak var eventLabel: UILabel!
+    @IBOutlet weak var subjectLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var teacherLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
-    var event, time, teacher, location: String!
+    var subject: SubjectInstance!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        eventLabel.text = event
-        timeLabel.text = time
-        teacherLabel.text = teacher
-        locationLabel.text = location
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.timeZone = TimeZone(identifier: "MSK")
+        dateFormatter.dateFormat = "HH:mm"
+        subjectLabel.text = subject.subject
+        timeLabel.text = dateFormatter.string(from: subject.startTime!) + "–" + dateFormatter.string(from: subject.endTime!)
+        var locationText = ""
+        for location in subject.locations! {
+            locationText += (location.educator ?? "Преподаватель неизвестен") + ": "
+            locationText += location.building ?? "Адрес неизвестен"
+            locationText += location.audience != nil ? (", " + location.audience! + "\n\n") : "\n\n"
+        }
+        locationLabel.text = locationText
     }
 
     override func didReceiveMemoryWarning() {

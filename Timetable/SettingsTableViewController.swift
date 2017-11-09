@@ -10,10 +10,12 @@ import UIKit
 import Disk
 
 class SettingsTableViewController: UITableViewController {
-
+    
+    @IBOutlet weak var updateOnLaunchSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        updateOnLaunchSwitch.isOn = UserDefaults.standard.bool(forKey: "updateOnLaunch")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,86 +28,69 @@ class SettingsTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func changeGroup(_ sender: Any) {
-        // TODO: Необходимо переработать кнопку — сейчас требуется нажимать четко в область надписи
-        //       если же нажимать справа, то ничего не происходит
-        UserDefaults.standard.removeObject(forKey: "division")
-        UserDefaults.standard.removeObject(forKey: "studyGroup")
-        self.present(storyboard!.instantiateInitialViewController()!, animated: true, completion: nil)
+    func changeGroup() {
+        let resetAlert = UIAlertController(title: "Вам потребуется интернет, чтобы выбрать группу", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        resetAlert.addAction(UIAlertAction(title: "Изменить группу", style: .destructive, handler: { (action: UIAlertAction!) in
+            UserDefaults.standard.removeObject(forKey: "studyGroup")
+            self.present(self.storyboard!.instantiateInitialViewController()!, animated: true, completion: nil)
+        }))
+        
+        resetAlert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (action: UIAlertAction!) in
+            return
+        }))
+        
+        present(resetAlert, animated: true, completion: nil)
+        
     }
     // MARK: - Table view data source
 
-    @IBAction func resetCache(_ sender: Any) {
-        if Disk.exists("timetable/", in: .caches) {
-            try! Disk.remove("timetable/", from: .caches)
-
+    func resetCache() {
+        let resetAlert = UIAlertController(title: "Сохраненные расписания будут удалены", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        resetAlert.addAction(UIAlertAction(title: "Очистить кэш", style: .destructive, handler: { (action: UIAlertAction!) in
+            if Disk.exists("timetable/", in: .caches) {
+                try! Disk.remove("timetable/", from: .caches)
+            }
+        }))
+        
+        resetAlert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (action: UIAlertAction!) in
+            return
+        }))
+        
+        present(resetAlert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func updateOnLaunchSwitchChanged(_ sender: Any) {
+        UserDefaults.standard.set(updateOnLaunchSwitch.isOn, forKey: "updateOnLaunch")
+        UserDefaults.standard.synchronize()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            switch indexPath.row {
+            case 0:
+                resetCache()
+            default:
+                break
+            }
+        case 2:
+            let toEmail = "me@vkirichenko.name"
+            let subject = "Отзыв о Расписании".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            // let body = "Just testing ...".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+            let body = "".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            
+            let urlString = "mailto:\(toEmail)?subject=\(subject)&body=\(body)",
+                url = URL(string: urlString)
+            UIApplication.shared.openURL(url!)
+            break
+            //self.performSegue(withIdentifier: "showAboutSegue", sender: nil)
+        default:
+            break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
+            
     }
-    /*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-     */
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

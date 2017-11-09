@@ -46,10 +46,11 @@ class StudyGroupTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UserDefaults.standard.set(selectedDivision, forKey: "division")
-        UserDefaults.standard.set(studyGroups[indexPath.row].studentGroupId, forKey: "studyGroup")
-        UserDefaults.standard.synchronize()
+        // UserDefaults.standard.set(studyGroups[indexPath.row].studentGroupId, forKey: "studyGroup")
+        // UserDefaults.standard.synchronize()
         // self.present(storyboard!.instantiateViewController(withIdentifier: "timetableViewController"), animated: true, completion: nil)
+        GroupsController.shared.addGroup(studyGroups[indexPath.row].studentGroupId, name: studyGroups[indexPath.row].studentGroupName)
+        GroupsController.shared.setSelected(at: GroupsController.shared.count() - 1)
         self.performSegue(withIdentifier: "showTimetableNavigationController", sender: nil)
     }
 }

@@ -24,27 +24,24 @@ struct AdmissionYear: Codable {
 
 struct StudyProgramCombination: Codable {
     let name, nameEnglish: String
-    let isBiology: Bool
     let admissionYears: [AdmissionYear]
     
     enum CodingKeys: String, CodingKey {
         case name = "Name"
         case nameEnglish = "NameEnglish"
-        case isBiology = "IsBiology"
         case admissionYears = "AdmissionYears"
     }
 }
 
 struct StudyLevel: Codable {
     let studyLevelName, studyLevelNameEnglish: String
-    let hasCourse6, isMagistery: Bool
+    let hasCourse6: Bool
     let studyProgramCombinations: [StudyProgramCombination]
     
     enum CodingKeys: String, CodingKey {
         case studyLevelName = "StudyLevelName"
         case studyLevelNameEnglish = "StudyLevelNameEnglish"
         case hasCourse6 = "HasCourse6"
-        case isMagistery = "IsMagistery"
         case studyProgramCombinations = "StudyProgramCombinations"
     }
 }

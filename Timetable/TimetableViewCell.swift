@@ -11,10 +11,10 @@ import UIKit
 class TimetableViewCell: UITableViewCell {
     @IBOutlet weak var startTime: UILabel!
     @IBOutlet weak var endTime: UILabel!
-    @IBOutlet weak var event: UILabel!
-    @IBOutlet weak var teacher: UILabel!
-    @IBOutlet weak var place: UILabel!
-    @IBOutlet weak var room: UILabel!
+    @IBOutlet weak var subject: UILabel!
+    @IBOutlet weak var educator: UILabel!
+    @IBOutlet weak var building: UILabel!
+    @IBOutlet weak var audience: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +25,18 @@ class TimetableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        self.contentView.layer.opacity = 1.0
+        self.startTime.backgroundColor = nil
+        self.endTime.backgroundColor = nil
+        self.subject.backgroundColor = nil
+        self.educator.backgroundColor = nil
+        self.building.backgroundColor = nil
+        self.audience.backgroundColor = nil
+        
+        self.subject.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
     }
 
 }

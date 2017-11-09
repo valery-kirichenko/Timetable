@@ -2,6 +2,7 @@ import Foundation
 
 struct WeekInstance: Codable {
     let weekMonday, nextWeek, prevWeek: String
+    let updated: Date
     let days: [DayInstance]
 }
 
@@ -13,6 +14,7 @@ struct DayInstance: Codable {
 struct SubjectInstance: Codable {
     let startTime, endTime: Date?
     let subject: String
+    let isCancelled, isTimeChanged, isLocationChanged, isEducatorChanged, isNew: Bool
     let locations: [LocationInstance]?
 }
 

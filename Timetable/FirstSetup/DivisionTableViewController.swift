@@ -20,6 +20,11 @@ class DivisionTableViewController: UITableViewController {
         super.viewDidLoad()
         divisionsList.dataSource = self
         divisionsList.delegate = self
+        
+        if GroupsController.shared.count() == 0 {
+            self.navigationItem.rightBarButtonItem = nil
+            //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(closeSetUp))
+        }
 
         URLSession.shared.dataTask(with: URL(string: "https://timetable.spbu.ru/api/v1/divisions")!) {
             data, response, err in
@@ -34,7 +39,11 @@ class DivisionTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self.divisionsList.reloadData()
             }
-            }.resume()
+        }.resume()
+    }
+    
+    @IBAction func closeSetUp(_ sender: Any) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
