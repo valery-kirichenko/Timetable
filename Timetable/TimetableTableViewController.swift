@@ -161,16 +161,17 @@ class TimetableTableViewController: UITableViewController {
             cell.subject.attributedText = attributedString
             cell.contentView.layer.opacity = 0.5
         }
+        let changedColor = UIColor(red:0.00, green:0.35, blue:0.71, alpha:1.0)
         if data.isTimeChanged {
-            cell.startTime.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.0, alpha: 0.25)
-            cell.endTime.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.0, alpha: 0.25)
+            cell.startTime.textColor = changedColor
+            cell.endTime.textColor = changedColor
         }
         if data.isEducatorChanged {
-            cell.educator.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.0, alpha: 0.25)
+            cell.educator.textColor = changedColor
         }
         if data.isLocationChanged {
-            cell.building.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.0, alpha: 0.25)
-            cell.audience.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.0, alpha: 0.25)
+            cell.building.textColor = changedColor
+            cell.audience.textColor = changedColor
         }
         if data.isNew {
             cell.subject.textColor = UIColor(red: 0.25, green: 0.71, blue: 0.00, alpha: 1.0)

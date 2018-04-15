@@ -29,14 +29,26 @@ class TimetableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.contentView.layer.opacity = 1.0
-        self.startTime.backgroundColor = nil
-        self.endTime.backgroundColor = nil
-        self.subject.backgroundColor = nil
-        self.educator.backgroundColor = nil
-        self.building.backgroundColor = nil
-        self.audience.backgroundColor = nil
+        self.startTime.text = nil
+        self.endTime.text = nil
+        self.subject.text = nil
+        self.educator.text = nil
+        self.building.text = nil
+        self.audience.text = nil
         
-        self.subject.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        self.startTime.attributedText = nil
+        self.endTime.attributedText = nil
+        self.subject.attributedText = nil
+        self.educator.attributedText = nil
+        self.building.attributedText = nil
+        self.audience.attributedText = nil
+        
+        self.startTime.textColor = UIColor.black
+        self.endTime.textColor = UIColor.black
+        self.subject.textColor = UIColor.black
+        self.educator.textColor = UIColor.black
+        self.building.textColor = UIColor.black
+        self.audience.textColor = UIColor.black
     }
 
 }

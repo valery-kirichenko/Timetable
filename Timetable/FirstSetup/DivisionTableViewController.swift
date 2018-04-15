@@ -14,10 +14,14 @@ class DivisionTableViewController: UITableViewController {
     var divisions: [Division]!
     var selectedDivision: Division!
     var studyLevels: [StudyLevel]!
+    let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
+        loadingIndicator.startAnimating()
+        self.navigationItem.titleView = loadingIndicator
+        
         divisionsList.dataSource = self
         divisionsList.delegate = self
         
@@ -29,7 +33,11 @@ class DivisionTableViewController: UITableViewController {
         URLSession.shared.dataTask(with: URL(string: "https://timetable.spbu.ru/api/v1/divisions")!) {
             data, response, err in
             guard let data = data else {
-                print("Error")
+                DispatchQueue.main.async {
+                    self.loadingIndicator.stopAnimating()
+                    self.navigationItem.title = "Ошибка получения данных"
+                    self.navigationItem.titleView = nil
+                }
                 return
             }
             
@@ -37,6 +45,8 @@ class DivisionTableViewController: UITableViewController {
             self.divisions = (try! decoder.decode([Division].self, from: data)).filter {$0.name.range(of: "Юриспруденция") == nil && $0.name.range(of: "Академическая гимназия") == nil}
 
             DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+                self.navigationItem.titleView = nil
                 self.divisionsList.reloadData()
             }
         }.resume()
