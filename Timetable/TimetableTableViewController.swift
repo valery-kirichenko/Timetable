@@ -13,7 +13,7 @@ class TimetableTableViewController: UITableViewController {
     var studyGroup = String(GroupsController.shared.getSelected().groupId)
     @IBOutlet var timetable: UITableView!
     let activityIndicatorToolbarItem = UIBarButtonItem()
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
     let weekIndicatorToolbarItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     var currentWeek = ""
     var previoiusWeek: String?

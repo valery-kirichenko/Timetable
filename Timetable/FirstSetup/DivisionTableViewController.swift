@@ -14,7 +14,7 @@ class DivisionTableViewController: UITableViewController {
     var divisions: [Division]!
     var selectedDivision: Division!
     var studyLevels: [StudyLevel]!
-    let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let loadingIndicator = UIActivityIndicatorView(style: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +83,7 @@ class DivisionTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let loadingIndicator = UIActivityIndicatorView(style: .gray)
         loadingIndicator.startAnimating()
         let cell = divisionsList.cellForRow(at: indexPath)
         cell?.accessoryView = loadingIndicator
@@ -102,7 +102,7 @@ class DivisionTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self.divisionsList.isUserInteractionEnabled = true
                 cell?.accessoryView = nil
-                cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+                cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
                 self.performSegue(withIdentifier: "showLevelSegue", sender: nil)
             }
         }.resume()

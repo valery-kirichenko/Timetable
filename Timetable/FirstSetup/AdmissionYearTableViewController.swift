@@ -53,7 +53,7 @@ class AdmissionYearTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let loadingIndicator = UIActivityIndicatorView(style: .gray)
         loadingIndicator.startAnimating()
         let cell = admissionYearsList.cellForRow(at: indexPath)
         cell?.accessoryView = loadingIndicator
@@ -73,7 +73,7 @@ class AdmissionYearTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self.admissionYearsList.isUserInteractionEnabled = true
                 cell?.accessoryView = nil
-                cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+                cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
                 self.performSegue(withIdentifier: "showStudyGroupSegue", sender: nil)
             }
         }.resume()

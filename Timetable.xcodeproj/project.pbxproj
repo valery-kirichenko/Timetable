@@ -23,7 +23,6 @@
 		25621A841F9754F800E8C2E4 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 255C84891F7AE8090091A4CC /* NotificationCenter.framework */; };
 		25621A871F9754F800E8C2E4 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25621A861F9754F800E8C2E4 /* TodayViewController.swift */; };
 		25621A8A1F9754F800E8C2E4 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25621A881F9754F800E8C2E4 /* MainInterface.storyboard */; };
-		25621A8E1F9754F800E8C2E4 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 25621A831F9754F800E8C2E4 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2594FDA11F6AD66B001D4CD2 /* TimetableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2594FDA01F6AD66B001D4CD2 /* TimetableViewCell.swift */; };
 		2596FFBD1FB2F49500EC97A5 /* EventDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596FFBC1FB2F49500EC97A5 /* EventDetailsTableViewController.swift */; };
 		2596FFBF1FB2FB1C00EC97A5 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596FFBE1FB2FB1C00EC97A5 /* LocationTableViewCell.swift */; };
@@ -39,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		25621A8C1F9754F800E8C2E4 /* PBXContainerItemProxy */ = {
+		1A056D122225337C00799B7B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2539028D1F65A8850025F959 /* Project object */;
 			proxyType = 1;
@@ -55,7 +54,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				25621A8E1F9754F800E8C2E4 /* Widget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,14 +225,13 @@
 				253902921F65A8850025F959 /* Frameworks */,
 				253902931F65A8850025F959 /* Resources */,
 				0250853E48B2E55A639AA88C /* [CP] Embed Pods Frameworks */,
-				D06CEAF799C87427DFB1813A /* [CP] Copy Pods Resources */,
 				25621A921F9754F800E8C2E4 /* Embed App Extensions */,
 				25D152491FA0EA0800DFFBD0 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				25621A8D1F9754F800E8C2E4 /* PBXTargetDependency */,
+				1A056D132225337C00799B7B /* PBXTargetDependency */,
 			);
 			name = Timetable;
 			productName = Timetable;
@@ -265,18 +262,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Valery Kirichenko";
 				TargetAttributes = {
 					253902941F65A8850025F959 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = SBUE9KQ5FX;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					25621A821F9754F800E8C2E4 = {
 						CreatedOnToolsVersion = 9.1;
 						DevelopmentTeam = SBUE9KQ5FX;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -328,7 +326,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Timetable/Pods-Timetable-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Timetable/Pods-Timetable-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -337,7 +335,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Timetable/Pods-Timetable-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Timetable/Pods-Timetable-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		25D152491FA0EA0800DFFBD0 /* ShellScript */ = {
@@ -369,21 +367,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D06CEAF799C87427DFB1813A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Timetable/Pods-Timetable-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -428,10 +411,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		25621A8D1F9754F800E8C2E4 /* PBXTargetDependency */ = {
+		1A056D132225337C00799B7B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 25621A821F9754F800E8C2E4 /* Widget */;
-			targetProxy = 25621A8C1F9754F800E8C2E4 /* PBXContainerItemProxy */;
+			targetProxy = 1A056D122225337C00799B7B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -477,6 +460,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -484,6 +468,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -534,6 +519,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -541,6 +527,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -585,8 +572,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.vkirichenko.Timetable;
 				PRODUCT_NAME = "Расписание СПбГУ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -604,8 +590,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = name.vkirichenko.Timetable;
 				PRODUCT_NAME = "Расписание СПбГУ";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -624,7 +609,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.vkirichenko.Timetable.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -644,7 +629,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.vkirichenko.Timetable.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

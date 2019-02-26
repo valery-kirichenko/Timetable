@@ -29,7 +29,7 @@ class SettingsTableViewController: UITableViewController {
     }
 
     func changeGroup() {
-        let resetAlert = UIAlertController(title: "Вам потребуется интернет, чтобы выбрать группу", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let resetAlert = UIAlertController(title: "Вам потребуется интернет, чтобы выбрать группу", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         resetAlert.addAction(UIAlertAction(title: "Изменить группу", style: .destructive, handler: { (action: UIAlertAction!) in
             UserDefaults.standard.removeObject(forKey: "studyGroup")
@@ -46,7 +46,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     func resetCache() {
-        let resetAlert = UIAlertController(title: "Сохраненные расписания будут удалены", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let resetAlert = UIAlertController(title: "Сохраненные расписания будут удалены", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         resetAlert.addAction(UIAlertAction(title: "Очистить кэш", style: .destructive, handler: { (action: UIAlertAction!) in
             if Disk.exists("timetable/", in: .caches) {

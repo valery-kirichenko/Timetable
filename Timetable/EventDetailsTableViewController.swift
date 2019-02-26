@@ -17,7 +17,7 @@ class EventDetailsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        detailsTable.rowHeight = UITableViewAutomaticDimension
+        detailsTable.rowHeight = UITableView.automaticDimension
         detailsTable.estimatedRowHeight = 44.0
 
         // detailsTable.register(LocationTableViewCell.self, forCellReuseIdentifier: "locationCell")
