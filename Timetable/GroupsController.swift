@@ -15,8 +15,8 @@ final class GroupsController {
     var groups: Groups
     
     private init() {
-        if Disk.exists(path, in: .applicationSupport) {
-            groups = try! Disk.retrieve(path, from: .applicationSupport, as: Groups.self)
+        if Disk.exists(path, in: .sharedContainer(appGroupName: "group.dev.valery.timetable")) {
+            groups = try! Disk.retrieve(path, from: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: Groups.self)
         } else {
             groups = Groups(selected: nil, list: [])
             save()
@@ -34,6 +34,16 @@ final class GroupsController {
     
     func remove(at index: Int) {
         groups.list.remove(at: index)
+        save()
+    }
+    
+    func move(from: Int, to: Int) {
+        let movedObj = groups.list[from]
+        if groups.selected == from {
+            groups.selected = to
+        }
+        groups.list.remove(at: from)
+        groups.list.insert(movedObj, at: to)
         save()
     }
     
@@ -57,7 +67,17 @@ final class GroupsController {
     }
     
     private func save() {
-        try! Disk.save(groups, to: .applicationSupport, as: path)
+        try! Disk.save(groups, to: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: path)
+    }
+    
+    func getQuickActions() -> [UIApplicationShortcutItem] {
+        return groups.list.prefix(4).map { group in
+            return UIApplicationShortcutItem(type: "FavoriteAction",
+                                             localizedTitle: group.groupName,
+                                             localizedSubtitle: nil,
+                                             icon: UIApplicationShortcutIcon(type: .favorite),
+                                             userInfo: nil)
+        }
     }
 }
 

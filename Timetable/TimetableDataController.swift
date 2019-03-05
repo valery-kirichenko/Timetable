@@ -29,19 +29,19 @@ public class TimetableDataController {
     
     func getTimetable(forWeek week: String, forceUpdate: Bool = false, completionHandler: @escaping (WeekInstance?) -> ()) {
         let filePath = "timetable/\(studyGroup)/\(week)"
-        if Disk.exists(filePath, in: .caches), let weekInstance = try? Disk.retrieve(filePath, from: .caches, as: WeekInstance.self) {
+        if Disk.exists(filePath, in: .sharedContainer(appGroupName: "group.dev.valery.timetable")), let weekInstance = try? Disk.retrieve(filePath, from: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: WeekInstance.self) {
             if Date().timeIntervalSince(weekInstance.updated) > 24 * 60 * 60 || forceUpdate {
                 getTimetableFromNetwork(forWeek: week) { weekInstance in
                     // If network request failed
                     if weekInstance == nil && !forceUpdate {
-                        completionHandler(try! Disk.retrieve(filePath, from: .caches, as: WeekInstance.self))
+                        completionHandler(try! Disk.retrieve(filePath, from: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: WeekInstance.self))
                     } else { // If network request succeded or update forced
                         completionHandler(weekInstance)
                     }
                 }
             } else {
                 print("Retrieved from cache")
-                completionHandler(try! Disk.retrieve(filePath, from: .caches, as: WeekInstance.self))
+                completionHandler(try! Disk.retrieve(filePath, from: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: WeekInstance.self))
             }
         } else {
             getTimetableFromNetwork(forWeek: week, completionHandler: completionHandler)
@@ -116,7 +116,7 @@ public class TimetableDataController {
             
             let week = WeekInstance(weekMonday: events.weekMonday!, nextWeek: events.nextWeekMonday!,
                                     prevWeek: events.previousWeekMonday!, updated: Date(), days: days)
-            try! Disk.save(week, to: .caches, as: filePath)
+            try! Disk.save(week, to: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: filePath)
             completionHandler(week)
         }.resume()
     }

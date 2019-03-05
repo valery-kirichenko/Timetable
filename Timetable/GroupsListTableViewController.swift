@@ -13,7 +13,7 @@ class GroupsListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButton))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButton))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButton))
         self.navigationItem.rightBarButtonItem?.style = .done
 
@@ -31,6 +31,38 @@ class GroupsListViewController: UITableViewController {
 
     @objc func addButton(_ sender: Any) {
         self.performSegue(withIdentifier: "showSetupSegue", sender: nil)
+    }
+    
+    @objc func doneButton(_ sender: Any) {
+        self.setEditing(false, animated: true)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButton))
+        self.navigationItem.rightBarButtonItem?.style = .done
+    }
+    
+    @objc func editButton(_ sender: Any) {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButton))
+        self.setEditing(true, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButton))
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButton))
+        self.navigationItem.rightBarButtonItem?.style = .done
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        GroupsController.shared.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

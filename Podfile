@@ -1,8 +1,9 @@
 platform :ios, '9.0'
 target 'Timetable' do
 use_frameworks!
-
     pod 'Disk'
-    pod 'Fabric'
-    pod 'Crashlytics'
+    
+    target 'NextEvent' do
+        inherit! :search_paths
+    end
 end

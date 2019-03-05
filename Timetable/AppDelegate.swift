@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Crashlytics.self])
         // Override point for customization after application launch.
         return true
     }
@@ -25,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        application.shortcutItems = GroupsController.shared.getQuickActions()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {

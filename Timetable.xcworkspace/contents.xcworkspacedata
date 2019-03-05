@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Pods/Pods.xcodeproj">
+      location = "group:Timetable.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Timetable.xcodeproj">
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

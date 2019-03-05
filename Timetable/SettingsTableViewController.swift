@@ -49,8 +49,8 @@ class SettingsTableViewController: UITableViewController {
         let resetAlert = UIAlertController(title: "Сохраненные расписания будут удалены", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         resetAlert.addAction(UIAlertAction(title: "Очистить кэш", style: .destructive, handler: { (action: UIAlertAction!) in
-            if Disk.exists("timetable/", in: .caches) {
-                try! Disk.remove("timetable/", from: .caches)
+            if Disk.exists("timetable/", in: .sharedContainer(appGroupName: "group.dev.valery.timetable")) {
+                try! Disk.remove("timetable/", from: .sharedContainer(appGroupName: "group.dev.valery.timetable"))
             }
         }))
         
@@ -77,7 +77,7 @@ class SettingsTableViewController: UITableViewController {
                 break
             }
         case 2:
-            let toEmail = "me@vkirichenko.name"
+            let toEmail = "me@valery.dev"
             let subject = "Отзыв о Расписании".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
             // let body = "Just testing ...".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
             let body = "".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
