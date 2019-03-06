@@ -12,11 +12,20 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var shortcutItemToProcess: UIApplicationShortcutItem?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
+            shortcutItemToProcess = shortcutItem
+        }
         return true
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        shortcutItemToProcess = shortcutItem
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -36,6 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if let shortcutItem = shortcutItemToProcess {
+            if let index = shortcutItem.userInfo?["index"] as? Int {
+                GroupsController.shared.setSelected(at: index)
+            }
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

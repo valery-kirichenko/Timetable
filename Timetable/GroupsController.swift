@@ -71,12 +71,12 @@ final class GroupsController {
     }
     
     func getQuickActions() -> [UIApplicationShortcutItem] {
-        return groups.list.prefix(4).map { group in
+        return groups.list.prefix(4).enumerated().map { (index, group) in
             return UIApplicationShortcutItem(type: "FavoriteAction",
                                              localizedTitle: group.groupName,
                                              localizedSubtitle: nil,
                                              icon: UIApplicationShortcutIcon(type: .favorite),
-                                             userInfo: nil)
+                                             userInfo: [ "index": index as NSSecureCoding])
         }
     }
 }

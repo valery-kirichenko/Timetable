@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 class TimetableTableViewController: UITableViewController {
     // let studyGroup = UserDefaults.standard.string(forKey: "studyGroup")!
@@ -41,6 +42,7 @@ class TimetableTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForPreviewing(with: self, sourceView: timetable)
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         weekIndicatorToolbarItem.action = #selector(self.resetWeek)
         weekIndicatorToolbarItem.target = self
@@ -57,6 +59,15 @@ class TimetableTableViewController: UITableViewController {
         print(UserDefaults.standard.bool(forKey: "updateOnLaunch"))
         resetWeek(forceUpdate: UserDefaults.standard.bool(forKey: "updateOnLaunch"))
         
+    }
+    
+    @objc func didBecomeActive() {
+        let testSelected = String(GroupsController.shared.getSelected().groupId)
+        if studyGroup != testSelected {
+            studyGroup = testSelected
+            timetableManager.setStudyGroup(studyGroup: String(studyGroup))
+            fetchAndUpdate()
+        }
     }
     
     override func didReceiveMemoryWarning() {
