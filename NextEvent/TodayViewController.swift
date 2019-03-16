@@ -35,7 +35,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         } else {
             completionHandler(NCUpdateResult.failed)
         }
-         */
+        */
         
         completionHandler(NCUpdateResult.newData)
     }

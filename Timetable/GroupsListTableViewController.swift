@@ -11,13 +11,18 @@ import UIKit
 class GroupsListViewController: UITableViewController {
     @IBOutlet var groupsList: UITableView!
     
+    lazy var editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButton))
+    lazy var cancelBarButton = UIBarButtonItem.init(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButton))
+    lazy var addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButton))
+    lazy var doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButton))
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButton))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButton))
-        self.navigationItem.rightBarButtonItem?.style = .done
-
-        // Do any additional setup after loading the view.
+        cancelBarButton.style = .done
+        
+        self.navigationItem.leftBarButtonItem = editBarButton
+        self.navigationItem.rightBarButtonItem = cancelBarButton
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,26 +40,24 @@ class GroupsListViewController: UITableViewController {
     
     @objc func doneButton(_ sender: Any) {
         self.setEditing(false, animated: true)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButton))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButton))
-        self.navigationItem.rightBarButtonItem?.style = .done
+        self.navigationItem.leftBarButtonItem = editBarButton
+        self.navigationItem.rightBarButtonItem = cancelBarButton
     }
     
     @objc func editButton(_ sender: Any) {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButton))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButton))
+        self.navigationItem.leftBarButtonItem = addBarButton
+        self.navigationItem.rightBarButtonItem = doneBarButton
         self.setEditing(true, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButton))
+        self.navigationItem.rightBarButtonItem = doneBarButton
     }
     
     override func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButton))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButton))
-        self.navigationItem.rightBarButtonItem?.style = .done
+        self.navigationItem.leftBarButtonItem = editBarButton
+        self.navigationItem.rightBarButtonItem = cancelBarButton
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

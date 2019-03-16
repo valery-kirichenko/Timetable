@@ -12,14 +12,17 @@ import Disk
 final class GroupsController {
     static let shared = GroupsController()
     var path = "usersGroups"
-    var groups: Groups
+    var groups: Groups {
+        didSet {
+            save()
+        }
+    }
     
     private init() {
         if Disk.exists(path, in: .sharedContainer(appGroupName: "group.dev.valery.timetable")) {
             groups = try! Disk.retrieve(path, from: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: Groups.self)
         } else {
             groups = Groups(selected: nil, list: [])
-            save()
         }
     }
     
@@ -29,12 +32,10 @@ final class GroupsController {
     
     func rename(at index: Int, to name: String) {
         groups.list[index].groupName = name
-        save()
     }
     
     func remove(at index: Int) {
         groups.list.remove(at: index)
-        save()
     }
     
     func move(from: Int, to: Int) {
@@ -44,17 +45,14 @@ final class GroupsController {
         }
         groups.list.remove(at: from)
         groups.list.insert(movedObj, at: to)
-        save()
     }
     
     func addGroup(_ id: Int, name: String) {
         groups.list.append(Group(groupId: id, groupName: name))
-        save()
     }
     
     func setSelected(at index: Int?) {
         groups.selected = index
-        save()
     }
     
     func getSelected() -> Group {
@@ -70,7 +68,11 @@ final class GroupsController {
         try! Disk.save(groups, to: .sharedContainer(appGroupName: "group.dev.valery.timetable"), as: path)
     }
     
-    func getQuickActions() -> [UIApplicationShortcutItem] {
+    func getQuickActions() -> [UIApplicationShortcutItem]? {
+        if groups.list.count < 2 {
+            return nil
+        }
+        
         return groups.list.prefix(4).enumerated().map { (index, group) in
             return UIApplicationShortcutItem(type: "FavoriteAction",
                                              localizedTitle: group.groupName,
